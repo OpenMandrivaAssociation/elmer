@@ -109,7 +109,7 @@ for m in %{modules}; do
 	--with-arpack='%{arpack_libs}'			\
 	--with-parpack='%{parpack_libs}'		\
 	--with-matc='%{matc_libs}'
-    %make						\
+    make						\
 	CXXFLAGS='%{eio_incs} %{huti_incs} %{matc_incs} -fPIC'	\
 	CFLAGS='%{eio_incs} %{huti_incs} %{matc_incs} -fPIC'	\
 	FFLAGS="-fopenmp -fPIC"				\
@@ -133,23 +133,23 @@ pushd ElmerGUI
 	-e 's|-Wl,--as-needed||;'			\
 	Application/Makefile
 
-    %make
+    make
 popd
 
 pushd ElmerGUIlogger
     qmake -project
     qmake
-    %make
+    make
 popd
 
 pushd ElmerGUItester
     qmake
-    %make
+    make
 popd
 
 pushd misc/tetgen_plugin
     qmake
-    %make
+    make
 popd
 
 #------------------------------------------------------------------------
