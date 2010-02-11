@@ -44,6 +44,7 @@ BuildRequires:	ftgl-devel
 BuildRequires:	gcc-gfortran
 BuildRequires:	libatlas-devel
 BuildRequires:	libqwt-devel
+#BuildRequires:	opencascade-devel
 BuildRequires:	openmpi-devel
 BuildRequires:	python-qt
 BuildRequires:	qt4-devel
@@ -100,9 +101,9 @@ for m in %{modules}; do
 	--with-mpi					\
 	--with-mpidir=%{_prefix}			\
 	--with-mpi-lib-dir=%{_libdir}			\
-	--with-blas='%{_libdir}/atlas -lf77blas'	\
-	--with-lapack='%{_libdir}/atlas -llapack'	\
-	--with-tcltk='%{_libdir} -ltcl -ltk'		\
+	--with-blas='-L%{_libdir}/atlas -lf77blas'	\
+	--with-lapack='-L%{_libdir}/atlas -llapack'	\
+	--with-tcltk='-L%{_libdir} -ltcl -ltk'		\
 	--with-huti='%{huti_libs}'			\
 	--with-eioc='%{eioc_libs}'			\
 	--with-eiof='%{eiof_libs}'			\
