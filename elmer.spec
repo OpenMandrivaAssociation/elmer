@@ -200,7 +200,7 @@ export LD_LIBRARY_PATH=%{ELMER_HOME}/lib:\$LD_LIBRARY_PATH
 EOF
 chmod +x %{buildroot}%{_bindir}/$script
 done
-ln -sf %{_bindir}/ElmerGUI %{_buildroot}%{_bindir}/%{name}
+ln -sf %{_bindir}/ElmerGUI %{buildroot}%{_bindir}/%{name}
 
 cp -far ElmerGUI/{samples,scripts} %{buildroot}%{ELMERGUI_HOME}
 
