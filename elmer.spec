@@ -44,11 +44,13 @@ BuildRequires:	ftgl-devel
 BuildRequires:	gcc-gfortran
 BuildRequires:	libatlas-devel
 BuildRequires:	libqwt-devel
-#BuildRequires:	opencascade-devel
+BuildRequires:	opencascade-devel
 BuildRequires:	openmpi-devel
 BuildRequires:	python-qt
 BuildRequires:	qt4-devel
 BuildRequires:	readline-devel
+BuildRequires:	tcl-devel
+BuildRequires:	tk-devel
 BuildRequires:	umfpack-devel
 BuildRequires:	vtk-devel
 
@@ -59,6 +61,7 @@ Patch2:		elmer-5.4.x-check-argv.patch
 Patch3:		elmer-5.4.x-qt4.patch
 Patch4:		elmer-5.4.x-format.patch
 Patch5:		elmer-5.4.x-env.patch
+Patch6:		elmer-5.4.x-tester.patch
 
 #-----------------------------------------------------------------------
 %description
@@ -81,6 +84,7 @@ Finite Element Method (FEM).
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 #------------------------------------------------------------------------
 %build
