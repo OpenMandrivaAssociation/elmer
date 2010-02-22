@@ -53,6 +53,7 @@ BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 BuildRequires:	umfpack-devel
 BuildRequires:	vtk-devel
+%py_requires -d
 
 #-----------------------------------------------------------------------
 Patch0:		elmer-5.4.x-tcl8.6.patch
