@@ -44,7 +44,7 @@ BuildRequires:	ftgl-devel
 BuildRequires:	gcc-gfortran
 BuildRequires:	libatlas-devel
 BuildRequires:	libqwt-devel
-BuildRequires:	opencascade-devel
+BuildRequires:	libopencascade-devel
 BuildRequires:	openmpi-devel
 BuildRequires:	python-qt
 BuildRequires:	qt4-devel
