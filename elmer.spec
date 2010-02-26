@@ -1,4 +1,4 @@
-%define _requires_exceptions	'\(libR\.so\|libf77blas\.so\)'
+%define _requires_exceptions	'\\\(libR\\\.so\\\|libf77blas\\\.so\\\)'
 
 # svn trunk
 %define svnsnapshot	4353
@@ -54,7 +54,8 @@ BuildRequires:	tk-devel
 BuildRequires:	umfpack-devel
 BuildRequires:	vtk-devel
 %py_requires -d
-Requires:	libatlas3
+Requires:	atlas3
+Requires:	R-base
 
 #-----------------------------------------------------------------------
 Patch0:		elmer-5.4.x-tcl8.6.patch
