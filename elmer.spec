@@ -1,4 +1,4 @@
-%define _requires_exceptions	'\\\(libR\\\.so\\\|libf77blas\\\.so\\\)'
+%define _requires_exceptions	'libR\\|libf77blas\\|devel('
 
 # svn trunk
 %define svnsnapshot	4353
@@ -32,7 +32,7 @@ Group:		Sciences/Physics
 License:	GPL
 Summary:	Open Source Finite Element Software for Multiphysical Problems
 Version:	%{version}
-Release:	%mkrel 3
+Release:	%mkrel 4
 URL:		http://www.csc.fi/english/pages/elmer
 Source0:	elmer-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
