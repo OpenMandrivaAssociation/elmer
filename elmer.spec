@@ -32,7 +32,7 @@ Group:		Sciences/Physics
 License:	GPL
 Summary:	Open Source Finite Element Software for Multiphysical Problems
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 URL:		http://www.csc.fi/english/pages/elmer
 Source0:	elmer-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -196,6 +196,7 @@ mv -f %{buildroot}%{ELMERGUI_HOME}/ElmerGUI %{buildroot}%{ELMERGUI_HOME}/bin
 mv -f %{buildroot}%{_bindir}/* %{buildroot}%{ELMERGUI_HOME}/bin
 
 cp -far ElmerGUI/Application/ElmerGUI ElmerGUIlogger/ElmerGUIlogger ElmerGUItester/ElmerGUItester %{buildroot}%{ELMERGUI_HOME}/bin
+cp -far ElmerGUI/Application/edf-extra %{buildroot}%{ELMERGUI_HOME}
 
 for script in ElmerGUI ElmerGUIlogger ElmerGUItester; do
 cat > %{buildroot}%{_bindir}/$script << EOF
