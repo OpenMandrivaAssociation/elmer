@@ -32,7 +32,7 @@ Group:		Sciences/Physics
 License:	GPL
 Summary:	Open Source Finite Element Software for Multiphysical Problems
 Version:	%{version}
-Release:	%mkrel 2
+Release:	%mkrel 3
 URL:		http://www.csc.fi/english/pages/elmer
 Source0:	elmer-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -65,7 +65,6 @@ Patch3:		elmer-5.4.x-qt4.patch
 Patch4:		elmer-5.4.x-format.patch
 Patch5:		elmer-5.4.x-env.patch
 Patch6:		elmer-5.4.x-tester.patch
-Patch7:		elmer-5.4.x-keywords.patch
 
 #-----------------------------------------------------------------------
 %description
@@ -89,7 +88,9 @@ Finite Element Method (FEM).
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
+
+# Overwrite the installed version with the more complete one
+cp -f fem/src/SOLVER.KEYWORDS front/src/lib/SOLVER.KEYWORDS
 
 #------------------------------------------------------------------------
 %build
