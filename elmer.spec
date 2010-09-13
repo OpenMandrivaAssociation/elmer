@@ -89,7 +89,7 @@ Finite Element Method (FEM).
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
+#%#patch7 -p1
 
 # Overwrite the installed version with the more complete one
 cp -f fem/src/SOLVER.KEYWORDS front/src/lib/SOLVER.KEYWORDS
