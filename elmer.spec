@@ -32,7 +32,7 @@ Group:		Sciences/Physics
 License:	GPL
 Summary:	Open Source Finite Element Software for Multiphysical Problems
 Version:	%{version}
-Release:	%mkrel 4
+Release:	%mkrel 5
 URL:		http://www.csc.fi/english/pages/elmer
 Source0:	elmer-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -53,7 +53,7 @@ BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 BuildRequires:	umfpack-devel
 BuildRequires:	vtk-devel
-%py_requires -d
+BuildRequires:	python-devel
 Requires:	libatlas
 Requires:	R-base
 
@@ -108,7 +108,7 @@ perl -pi						\
 
 for m in %{modules}; do
     pushd $m
-    %configure						\
+    %configure2_5x					\
 	--prefix=%{ELMER_HOME}				\
 	--with-mpi					\
 	--with-mpidir=%{_prefix}			\
