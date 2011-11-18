@@ -6,6 +6,8 @@
 %define name		elmer
 %define version		6.0.%{svnsnapshot}
 
+%define mpi_inc_dir	%{multiarch_includedir} -I%{_includedir}
+
 %define eio_incs	-I%{_builddir}/%{name}-%{version}/eio/include
 %define eioc_libs	-L%{_builddir}/%{name}-%{version}/eio/src -leioc
 %define eiof_libs	-L%{_builddir}/%{name}-%{version}/eio/src -leiof
@@ -122,7 +124,7 @@ for m in %{modules}; do
 	--with-mpi					\
 	--with-mpidir=%{_prefix}			\
 	--with-mpi-lib-dir=%{_libdir}			\
-	--with-mpi-inc-dir=%{_includedir}		\
+	--with-mpi-inc-dir="%{mpi_inc_dir}"		\
 	--with-blas='-L%{_libdir}/atlas -lf77blas'	\
 	--with-lapack='%{lapack_libs}'			\
 	--with-tcltk='-L%{_libdir} -ltcl -ltk'		\
@@ -140,7 +142,7 @@ for m in %{modules}; do
     make						\
 	CXXFLAGS='%{eio_incs} %{huti_incs} %{matc_incs} -fPIC'	\
 	CFLAGS='%{eio_incs} %{huti_incs} %{matc_incs} -fPIC'	\
-	FFLAGS="$FFLAGS -fopenmp -fPIC -I%{_includedir}"	\
+	FFLAGS="$FFLAGS -fopenmp -fPIC -I%{mpi_inc_dir}"		\
 	FCPPFLAGS='-P -traditional-cpp -I. %{huti_incs} -DFULL_INDUCTION -DUSE_ARPACK'
     popd
 done
