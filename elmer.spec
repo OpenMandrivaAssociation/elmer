@@ -1,5 +1,9 @@
 %define _requires_exceptions	libR\\|libf77blas\\|devel(
 
+# fix weird i586 only link error in fem/configure when checking for mpi
+# /usr/bin/ld: /home/pcpa/rpm/BUILD/elmer-6.0.5452/mathlibs/src/parpack/libparpack.a(pdmout.o)(.debug_info+0x50f): unresolvable R_386_32 relocation against symbol `mpi_fortran_argv_null_'
+%define _disable_ld_as_needed	1
+
 # svn trunk
 %define svnsnapshot	5452
 
