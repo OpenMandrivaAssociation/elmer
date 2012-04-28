@@ -56,7 +56,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	ftgl-devel
 BuildRequires:	gcc-gfortran
 BuildRequires:	libatlas-devel
-BuildRequires:	libglu-devel
+BuildRequires:	mesaglu-devel
 BuildRequires:	libqwt-devel
 BuildRequires:	libqwtplot3d-devel
 BuildRequires:	opencascade-devel
