@@ -1,0 +1,26 @@
+--- elmer-6.0.5452/ElmerGUI/PythonQt/src/PythonQtImporter.cpp.orig	2011-11-18 16:36:38.841811435 -0200
++++ elmer-6.0.5452/ElmerGUI/PythonQt/src/PythonQtImporter.cpp	2011-11-18 16:38:54.111941598 -0200
+@@ -186,7 +186,7 @@ PythonQtImporter_load_module(PyObject *o
+ {
+   PythonQtImporter *self = (PythonQtImporter *)obj;
+   PyObject *code, *mod, *dict;
+-  char *fullname;
++  char *fullname, *c_modpath;
+   QString modpath;
+   int ispackage;
+ 
+@@ -229,11 +229,12 @@ PythonQtImporter_load_module(PyObject *o
+     if (err != 0)
+       goto error;
+   }
+-  mod = PyImport_ExecCodeModuleEx(fullname, code, (char*)modpath.toLatin1().data());
++  c_modpath = modpath.toLatin1().data();
++  mod = PyImport_ExecCodeModuleEx(fullname, code, c_modpath);
+   Py_DECREF(code);
+   if (Py_VerboseFlag)
+     PySys_WriteStderr("import %s # loaded from %s\n",
+-          fullname, (char*)modpath.toLatin1().data());
++          fullname, c_modpath);
+   return mod;
+ error:
+   Py_DECREF(code);

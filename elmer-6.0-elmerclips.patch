@@ -1,0 +1,22 @@
+--- elmer-6.0.5452/utils/ElmerClips/ElmerClips.pro.orig	2011-11-18 18:42:41.087287732 -0200
++++ elmer-6.0.5452/utils/ElmerClips/ElmerClips.pro	2011-11-18 18:42:49.268325352 -0200
+@@ -11,7 +11,7 @@ win32 {
+ }
+ 
+ unix {
+-  LIBS += -lavcodec -lavcore -lavutil -lswscale
++  LIBS += -lavcodec -lavutil -lswscale
+ }
+ 
+ CONFIG += release
+--- elmer-6.0.5452/utils/ElmerClips/src/encoder.cpp.orig	2011-11-18 18:40:13.525608328 -0200
++++ elmer-6.0.5452/utils/ElmerClips/src/encoder.cpp	2011-11-18 18:40:21.243643893 -0200
+@@ -213,7 +213,7 @@ void Encoder::compressImages(int targetW
+   }
+ 
+   context->codec_id = codec_id;
+-  context->codec_type = CODEC_TYPE_VIDEO;
++  context->codec_type = AVMEDIA_TYPE_VIDEO;
+   context->qmin = 2;
+   context->qmax = qMax(2, qMin(31, quality));
+   context->width = widthYUV;

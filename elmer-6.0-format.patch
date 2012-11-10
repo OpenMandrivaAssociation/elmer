@@ -1,0 +1,23 @@
+--- elmer-6.0.5452/misc/tetgen_plugin/testapp/main.cpp.orig	2011-11-18 16:21:31.161258335 -0200
++++ elmer-6.0.5452/misc/tetgen_plugin/testapp/main.cpp	2011-11-18 16:22:14.323417719 -0200
+@@ -13,17 +13,17 @@ int main(int argc, char **argv)
+   QLibrary plugin("tetplugin");
+ 
+   if(!plugin.load())
+-    qFatal(qPrintable(plugin.errorString()));
++    qFatal("%s", qPrintable(plugin.errorString()));
+ 
+   tetgenio_t ptetgenio = (tetgenio_t)plugin.resolve("CreateObjectOfTetgenio");
+ 
+   if(!ptetgenio)
+-    qFatal(qPrintable(plugin.errorString()));
++    qFatal("%s", qPrintable(plugin.errorString()));
+ 
+   delegate_t pdelegate = (delegate_t)plugin.resolve("delegate_tetrahedralize");
+ 
+   if(!pdelegate)
+-    qFatal(qPrintable(plugin.errorString()));
++    qFatal("%s", qPrintable(plugin.errorString()));
+   
+   tetgenio *in = (ptetgenio)();
+   tetgenio *out = (ptetgenio)();

@@ -1,0 +1,178 @@
+--- elmer-6.0.5452/ElmerGUItester/src/tester.cpp.orig	2011-11-18 16:23:36.085723691 -0200
++++ elmer-6.0.5452/ElmerGUItester/src/tester.cpp	2011-11-18 16:24:17.892881978 -0200
+@@ -169,8 +169,8 @@ void Tester::verdict()
+ 
+   e->append("Elmer seems to be installed incorrectly on this system");
+   e->append("1) Make sure that ELMER_HOME has been set up properly");
+-  e->append("2) Set ELMERGUI_HOME to ELMER_HOME/bin");
+-  e->append("3) Set ELMER_POST_HOME to ELMER_HOME/share/elmerpost");
++  e->append("2) Set ELMERGUI_HOME to ELMER_HOME");
++  e->append("3) Set ELMER_POST_HOME to ELMER_HOME");
+   e->append("4) Make sure that ELMER_HOME/bin is in PATH");
+ #ifdef Q_WS_WIN
+   e->append("5) Make sure that ELMER_HOME/lib is in PATH");
+--- elmer-6.0.5452/fem/configure.in.orig	2011-11-18 16:24:33.321940682 -0200
++++ elmer-6.0.5452/fem/configure.in	2011-11-18 16:24:50.060004532 -0200
+@@ -288,7 +288,7 @@ AC_SUBST(FCFLAGS)
+ AC_SUBST(OFF_KIND)
+ AC_SUBST(LONG_KIND)
+ 
+-AC_DEFINE_UNQUOTED(ELMER_SOLVER_HOME,"${prefix}/share/elmersolver", [Elmer solver default install directory])
++AC_DEFINE_UNQUOTED(ELMER_SOLVER_HOME,"${prefix}", [Elmer solver default install directory])
+ AC_CONFIG_HEADER(config.h)
+ 
+ # runtests needs to be runnable
+--- elmer-6.0.5452/fem/configure.orig	2011-11-18 16:24:59.267039724 -0200
++++ elmer-6.0.5452/fem/configure	2011-11-18 16:25:15.884103367 -0200
+@@ -16915,7 +16915,7 @@ echo "${ECHO_T}defining LONG_KIND to be
+ 
+ 
+ cat >>confdefs.h <<_ACEOF
+-#define ELMER_SOLVER_HOME "${prefix}/share/elmersolver"
++#define ELMER_SOLVER_HOME "${prefix}"
+ _ACEOF
+ 
+ ac_config_headers="$ac_config_headers config.h"
+--- elmer-6.0.5452/fem/src/ElementDescription.src.orig	2011-11-18 16:25:25.025138445 -0200
++++ elmer-6.0.5452/fem/src/ElementDescription.src	2011-11-18 16:25:56.028257759 -0200
+@@ -418,7 +418,7 @@ CONTAINS
+ 
+         IF ( k > 0 ) THEN
+            WRITE( str, '(a,a)' ) elmer_home(1:k),&
+-'/share/elmersolver/lib/elements.def'
++'/lib/elements.def'
+         ELSE
+ 	   CALL GetSolverHome(elmer_home, n)
+ 	   WRITE(str, '(a,a)') elmer_home(1:n), &
+--- elmer-6.0.5452/fem/src/elmerf90.in.orig	2011-11-18 16:26:06.301297406 -0200
++++ elmer-6.0.5452/fem/src/elmerf90.in	2011-11-18 16:26:28.724384134 -0200
+@@ -3,10 +3,10 @@
+ if test "$ELMER_LIB" = ""; then
+   if  test "$ELMER_HOME" = ""; then
+      LIBDIR=@prefix@/lib
+-     INCLUDE=@prefix@/share/elmersolver/include
++     INCLUDE=@prefix@/include
+   else
+      LIBDIR=$ELMER_HOME/lib
+-     INCLUDE=$ELMER_HOME/share/elmersolver/include
++     INCLUDE=$ELMER_HOME/include
+   fi
+ else
+   LIBDIR=$ELMER_LIB
+--- elmer-6.0.5452/fem/src/elmerf90-nosh.in.orig	2011-11-18 16:26:39.675426581 -0200
++++ elmer-6.0.5452/fem/src/elmerf90-nosh.in	2011-11-18 16:26:51.044470709 -0200
+@@ -2,9 +2,9 @@
+ 
+ if test "$ELMER_LIB" = ""; then
+   if  test "$ELMER_HOME" = ""; then
+-     INCLUDE=@prefix@/share/elmersolver/include
++     INCLUDE=@prefix@/include
+   else
+-     INCLUDE=$ELMER_HOME/share/elmersolver/include
++     INCLUDE=$ELMER_HOME/include
+   fi
+   INCLUDE_DEF=.
+ else
+--- elmer-6.0.5452/fem/src/Load.c.orig	2011-11-18 16:27:01.518511418 -0200
++++ elmer-6.0.5452/fem/src/Load.c	2011-11-18 16:28:15.149798973 -0200
+@@ -269,7 +269,7 @@ void *STDCALLBULL FC_FUNC(loadfunction,L
+       cptr = (char *)getenv("ELMER_HOME");
+       if ( cptr != NULL  ) {
+          strncpy( ElmerLib, cptr, 2*MAX_PATH_LEN );
+-         strncat( ElmerLib, "/share/elmersolver/lib/", 2*MAX_PATH_LEN );
++         strncat( ElmerLib, "/lib/", 2*MAX_PATH_LEN );
+       } else {
+ #if defined(WIN32) || defined(MINGW32)
+ 	/* Should not get here unless WIN32 implements DLOPEN_API */
+@@ -354,7 +354,7 @@ void *STDCALLBULL FC_FUNC(loadfunction,L
+       cptr = (char *)getenv("ELMER_HOME");
+       if ( cptr != NULL  ) {
+          strncpy( ElmerLib, cptr, 2*MAX_PATH_LEN );
+-         strncat( ElmerLib, "/share/elmersolver/lib/", 2*MAX_PATH_LEN );
++         strncat( ElmerLib, "/lib/", 2*MAX_PATH_LEN );
+       } else {
+ #if defined(WIN32) || defined(MINGW32)
+ 	GetModuleFileName(NULL, appPath, MAX_PATH_LEN);
+--- elmer-6.0.5452/fem/src/ModelDescription.src.orig	2011-11-18 16:28:39.616895022 -0200
++++ elmer-6.0.5452/fem/src/ModelDescription.src	2011-11-18 16:28:55.372956998 -0200
+@@ -820,7 +820,7 @@ CONTAINS
+              str = 'ELMER_HOME'; str(11:11) = CHAR(0)
+              CALL envir( str,str1,k ) 
+              IF ( k > 0 ) THEN
+-               str1 = str1(1:k) // '/share/elmersolver/lib/' // 'SOLVER.KEYWORDS'
++               str1 = str1(1:k) // '/lib/' // 'SOLVER.KEYWORDS'
+              ELSE
+                CALL GetSolverHome(str, n)
+                WRITE(str1, '(a,a)') str(1:n), '/lib/SOLVER.KEYWORDS'
+--- elmer-6.0.5452/fem/tests/runtests.in.orig	2011-11-18 16:29:04.618993408 -0200
++++ elmer-6.0.5452/fem/tests/runtests.in	2011-11-18 16:29:19.037050249 -0200
+@@ -36,8 +36,8 @@ else
+     # ELMER_HOME is defined, so we'll just use that
+     printf "ELMER_HOME=%s\n" $ELMER_HOME
+     export ELMER_HOME=`echo $ELMER_HOME | sed 's+.:+/&+' | sed 's.:..' | sed 's.\\\./.g'`
+-    export ELMER_LIB="$ELMER_HOME/share/elmersolver/lib"
+-    export ELMER_INCLUDE="$ELMER_HOME/share/elmersolver/include"
++    export ELMER_LIB="$ELMER_HOME/lib"
++    export ELMER_INCLUDE="$ELMER_HOME/include"
+     export ELMER_GRID="$ELMER_HOME/bin/ElmerGrid"
+     export ELMER_SOLVER="$ELMER_HOME/bin/ElmerSolver"
+     export ELMER_MESH2D="$ELMER_HOME/bin/Mesh2D"
+--- elmer-6.0.5452/front/src/ecif_userinterface_TCL.cpp.orig	2011-11-18 16:29:28.459087434 -0200
++++ elmer-6.0.5452/front/src/ecif_userinterface_TCL.cpp	2011-11-18 16:30:34.349348305 -0200
+@@ -5292,13 +5292,11 @@ UserInterface_TCL::start(int argc, char*
+     file_strm.seekp(0);
+     lib_strm.seekp(0);
+     
+-    file_strm << ELMER_FRONT_PREFIX 
+-              << "/share/elmerfront"
++    file_strm << ELMER_FRONT_PREFIX << "/"
+ 	      << front_tcl_path  << "/"
+ 	      << controlSideScript
+ 	      << ends;
+-    lib_strm  << ELMER_FRONT_PREFIX 
+-	      << "/share/elmerfront/tcl/"
++    lib_strm  << ELMER_FRONT_PREFIX  << "/"
+ 	      << ends;
+     // Try to open start-script!
+     printf("Trying %s\n",file_buffer);
+--- elmer-6.0.5452/front/src/tcl/ecif_tcl_mainScript.tcl.in.orig	2011-11-18 16:30:44.270387703 -0200
++++ elmer-6.0.5452/front/src/tcl/ecif_tcl_mainScript.tcl.in	2011-11-18 16:31:21.877537311 -0200
+@@ -189,12 +189,12 @@ proc startGUI {} {
+ proc setElmerFrontPaths {} {
+     global Info env
+ 
+-    set Info(ELMER_FRONT_INSTALL_LIB) "@prefix@/share/elmerfront/lib"
+-    set Info(ELMER_FRONT_INSTALL_TCL) "@prefix@/share/elmerfront/tcl"
++    set Info(ELMER_FRONT_INSTALL_LIB) "/usr/share/elmerfront/lib"
++    set Info(ELMER_FRONT_INSTALL_TCL) "/usr/share/elmerfront/tcl"
+ 
+     if { [info exists env(ELMER_HOME)] } {
+-      set Info(ELMER_FRONT_INSTALL_LIB) "$env(ELMER_HOME)/share/elmerfront/lib"
+-      set Info(ELMER_FRONT_INSTALL_TCL) "$env(ELMER_HOME)/share/elmerfront/tcl"
++      set Info(ELMER_FRONT_INSTALL_LIB) "$env(ELMER_HOME)/lib"
++      set Info(ELMER_FRONT_INSTALL_TCL) "$env(ELMER_HOME)/tcl"
+     }
+ 
+     if { [info exists env(ELMER_FRONT_HOME)] } {
+--- elmer-6.0.5452/post/configure.in.orig	2011-11-18 16:31:35.455591425 -0200
++++ elmer-6.0.5452/post/configure.in	2011-11-18 16:31:50.173650138 -0200
+@@ -74,7 +74,7 @@ ACX_SHLIB_STUFF
+ AC_SUBST(SH_LDFLAGS)
+ AC_SUBST(SH_LD)
+ 
+-AC_DEFINE_UNQUOTED(ELMER_POST_HOME,"${prefix}/share/elmerpost", [Elmer post default install directory])
++AC_DEFINE_UNQUOTED(ELMER_POST_HOME,"${prefix}", [Elmer post default install directory])
+ 
+ AM_CONDITIONAL(NOTWINDOWS, test "$acx_platform_def" != "WIN32")
+ AM_CONDITIONAL(NOTMINGW32, test "$acx_platform_mgw" != "TRUE" )
+--- elmer-6.0.5452/post/configure.orig	2011-11-18 16:32:04.813708598 -0200
++++ elmer-6.0.5452/post/configure	2011-11-18 16:32:16.542755472 -0200
+@@ -12939,7 +12939,7 @@ fi
+ 
+ 
+ cat >>confdefs.h <<_ACEOF
+-#define ELMER_POST_HOME "${prefix}/share/elmerpost"
++#define ELMER_POST_HOME "${prefix}"
+ _ACEOF
+ 
+ 

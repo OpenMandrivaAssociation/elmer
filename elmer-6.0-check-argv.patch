@@ -1,0 +1,18 @@
+--- elmer-6.0.5452/fem/src/SC2Elmer.c.orig	2011-11-18 16:17:33.411414116 -0200
++++ elmer-6.0.5452/fem/src/SC2Elmer.c	2011-11-18 16:17:53.991484525 -0200
+@@ -143,6 +143,9 @@ int main( int argc, char **argv )
+    edge_t **edge, *ptr;
+    double x,y,n[2],cx,cy, g, *groups_x, *groups_y, s, twopi, ang;
+ 
++   if (fp == NULL)
++      return -1;
++
+    line = scan( fp );
+    sscanf( line, "%d %d", &elements, &nodes );
+ 
+@@ -335,4 +338,5 @@ int main( int argc, char **argv )
+ 
+    fprintf( fp_out, "2\n408 %d\n203 %d\n", elements, j );
+    fclose( fp_out );
++   return 0;
+ }

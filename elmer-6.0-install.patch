@@ -1,0 +1,113 @@
+--- elmer-6.0.5452/elmerparam/src/Makefile.in.orig	2011-11-18 16:11:59.963376375 -0200
++++ elmer-6.0.5452/elmerparam/src/Makefile.in	2011-11-18 16:12:34.377472442 -0200
+@@ -660,9 +660,9 @@ uninstall-am: uninstall-binPROGRAMS unin
+ 
+ 
+ @UPPERCASEMODS_TRUE@install-exec-local:
+-@UPPERCASEMODS_TRUE@	$(INSTALL) ELMERPARAM.mod $(includedir)
++@UPPERCASEMODS_TRUE@	$(INSTALL) ELMERPARAM.mod $(DESTDIR)$(includedir)
+ @UPPERCASEMODS_FALSE@install-exec-local:
+-@UPPERCASEMODS_FALSE@	$(INSTALL) elmerparam.mod $(includedir)
++@UPPERCASEMODS_FALSE@	$(INSTALL) elmerparam.mod $(DESTDIR)$(includedir)
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
+--- elmer-6.0.5452/fem/src/binio/Makefile.in.orig	2011-11-18 16:12:43.947499696 -0200
++++ elmer-6.0.5452/fem/src/binio/Makefile.in	2011-11-18 16:13:06.609565130 -0200
+@@ -266,7 +266,7 @@ SUBDIRS = test
+ AM_FCFLAGS = @INCLUDE_MODULE_FLAG@.  @INCLUDE_MODULE_FLAG@..
+ noinst_LIBRARIES = libbinio.a
+ libbinio_a_SOURCES = binio.c kinds.f90 biniomod.f90
+-ELMER_SOLVER_DATADIR = $(prefix)/share/elmersolver
++ELMER_SOLVER_DATADIR = $(prefix)
+ CLEANFILES = *.mod
+ all: all-recursive
+ 
+--- elmer-6.0.5452/fem/src/Makefile.am.orig	2011-11-18 16:13:21.627609166 -0200
++++ elmer-6.0.5452/fem/src/Makefile.am	2011-11-18 16:13:49.281691600 -0200
+@@ -139,7 +139,7 @@ ResultToResult$(EXE_EXT): libelmersolver
+ 	      -L. -lelmersolver mpi_stubs$(OBJ_EXT) $(EXTRA_LIBS)
+ endif
+ 
+-ELMER_SOLVER_DATADIR=$(prefix)/share/elmersolver
++ELMER_SOLVER_DATADIR=$(prefix)
+ install-data-local:
+ 	@echo "Installing solvers to ${ELMER_SOLVER_DATADIR}/lib"
+ 
+--- elmer-6.0.5452/fem/src/Makefile.in.orig	2011-11-18 16:13:58.883720618 -0200
++++ elmer-6.0.5452/fem/src/Makefile.in	2011-11-18 16:14:10.105754779 -0200
+@@ -422,7 +422,7 @@ NORMAL_TARGETS = mpif libelmersolver$(SH
+ MPI_TARGETS = ElmerSolver_mpi$(EXE_EXT)
+ @USE_MPI_FALSE@ELMER_TARGETS = $(NORMAL_TARGETS)
+ @USE_MPI_TRUE@ELMER_TARGETS = $(NORMAL_TARGETS) $(MPI_TARGETS)
+-ELMER_SOLVER_DATADIR = $(prefix)/share/elmersolver
++ELMER_SOLVER_DATADIR = $(prefix)
+ SC2Elmer_SOURCES = SC2Elmer.c
+ EXTRA_DIST = \
+ 	Adaptive.src \
+--- elmer-6.0.5452/front/src/Makefile.am.orig	2011-11-18 16:14:18.827781513 -0200
++++ elmer-6.0.5452/front/src/Makefile.am	2011-11-18 16:15:11.073944839 -0200
+@@ -85,16 +85,16 @@ ElmerFront_SOURCES =  $(COMMON_SRCS)
+ endif
+ 
+ install-data-local:
+-	@echo "Installing tcl scripts to ${prefix}/share/elmerfront/tcl"
++	@echo "Installing tcl scripts to ${prefix}/tcl"
+ 
+-	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+-	cp -r ./tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+-	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/tcl -name .svn`
+-
+-	@echo "Installing *.edf *.rgb to ${prefix}/share/elmerfront/lib"
+-	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/lib"
+-	cp -r ./lib/* "$(DESTDIR)${prefix}/share/elmerfront/lib"
+-	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/lib -name .svn`
++	mkdir -p "$(DESTDIR)${prefix}/tcl"
++	cp -r ./tcl/* "$(DESTDIR)${prefix}/tcl"
++	rm -rf `find $(DESTDIR)$(prefix)/tcl -name .svn`
++
++	@echo "Installing *.edf *.rgb to ${prefix}/lib"
++	mkdir -p "$(DESTDIR)${prefix}/lib"
++	cp -r ./lib/* "$(DESTDIR)${prefix}/lib"
++	rm -rf `find $(DESTDIR)$(prefix)/lib -name .svn`
+ 
+ 
+ 
+--- elmer-6.0.5452/front/src/Makefile.in.orig	2011-11-18 16:15:24.154986546 -0200
++++ elmer-6.0.5452/front/src/Makefile.in	2011-11-18 16:15:56.362090533 -0200
+@@ -636,16 +636,16 @@ uninstall-am: uninstall-binPROGRAMS
+ @HAVE_WINDRES_TRUE@	windres $^ -o $@
+ 
+ install-data-local:
+-	@echo "Installing tcl scripts to ${prefix}/share/elmerfront/tcl"
++	@echo "Installing tcl scripts to ${prefix}/tcl"
+ 
+-	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+-	cp -r ./tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+-	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/tcl -name .svn`
++	mkdir -p "$(DESTDIR)${prefix}/tcl"
++	cp -r ./tcl/* "$(DESTDIR)${prefix}/tcl"
++	rm -rf `find $(DESTDIR)$(prefix)/tcl -name .svn`
+ 
+-	@echo "Installing *.edf *.rgb to ${prefix}/share/elmerfront/lib"
+-	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/lib"
+-	cp -r ./lib/* "$(DESTDIR)${prefix}/share/elmerfront/lib"
+-	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/lib -name .svn`
++	@echo "Installing *.edf *.rgb to ${prefix}/lib"
++	mkdir -p "$(DESTDIR)${prefix}/lib"
++	cp -r ./lib/* "$(DESTDIR)${prefix}/lib"
++	rm -rf `find $(DESTDIR)$(prefix)/lib -name .svn`
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
+--- elmer-6.0.5452/post/src/Makefile.in.orig	2011-11-18 16:16:05.907121698 -0200
++++ elmer-6.0.5452/post/src/Makefile.in	2011-11-18 16:16:17.498159744 -0200
+@@ -303,7 +303,7 @@ SUBDIRS = tk glaux camera graphics modul
+ @NOTWINDOWS_TRUE@QueryGLXExt_SOURCES = QueryGLXExt.c 
+ @NOTWINDOWS_TRUE@EXTRA_DIST = screensave.c
+ ElmerPost_LDFLAGS = $(SH_EXPALL_FLAG)
+-ELMER_POST_DATADIR = $(prefix)/share/elmerpost
++ELMER_POST_DATADIR = $(prefix)
+ all: all-recursive
+ 
+ .SUFFIXES:

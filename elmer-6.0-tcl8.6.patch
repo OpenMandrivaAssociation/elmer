@@ -1,0 +1,63 @@
+--- elmer-6.0.5452/front/include/ecif_userinterface_TCL.h.orig	2011-11-18 16:06:43.387674999 -0200
++++ elmer-6.0.5452/front/include/ecif_userinterface_TCL.h	2011-11-18 16:06:57.944698287 -0200
+@@ -42,8 +42,10 @@ Abstract:   A class for TCL based userin
+ // Win32 and X
+ // Tcl and Stl (list variable argument in tcl.h)
+ #include "ecif_def.h"
++#define USE_INTERP_RESULT		1
+ #include <tcl.h>
+ #include <tk.h>
++#undef USE_INTERP_RESULT
+ #include "ecif_def_stl.h"
+ //***END NOTE
+ 
+--- elmer-6.0.5452/post/src/ElmerPost.c.orig	2011-11-18 16:07:13.930725051 -0200
++++ elmer-6.0.5452/post/src/ElmerPost.c	2011-11-18 16:07:28.440750388 -0200
+@@ -47,6 +47,7 @@
+ #include "elmerpost.h"
+ #include "../config.h"
+ 
++#define USE_INTERP_RESULT		1
+ #include <tcl.h>
+ #include <tk.h>
+ 
+--- elmer-6.0.5452/post/src/modules/matctcl.c.orig	2011-11-18 16:07:47.898785875 -0200
++++ elmer-6.0.5452/post/src/modules/matctcl.c	2011-11-18 16:07:57.272803573 -0200
+@@ -61,6 +61,7 @@
+  */
+ 
+ #include "../elmerpost.h"
++#define USE_INTERP_RESULT		1
+ #include <tcl.h>
+ #include <tk.h>
+ 
+--- elmer-6.0.5452/post/src/modules/readfile.c.orig	2011-11-18 16:08:21.786851635 -0200
++++ elmer-6.0.5452/post/src/modules/readfile.c	2011-11-18 16:08:23.840855777 -0200
+@@ -46,6 +46,7 @@
+ 
+ 
+ #include "../elmerpost.h"
++#define USE_INTERP_RESULT		1
+ #include <tcl.h>
+ 
+ extern double XMin,XMax,YMin,YMax,ZMin,ZMax;
+--- elmer-6.0.5452/post/src/modules/transforms.c.orig	2011-11-18 16:08:40.098889165 -0200
++++ elmer-6.0.5452/post/src/modules/transforms.c	2011-11-18 16:08:47.519904760 -0200
+@@ -61,6 +61,7 @@
+ 
+ #include "../elmerpost.h"
+ 
++#define USE_INTERP_RESULT		1
+ #include <tcl.h>
+ #include <tk.h>
+ 
+--- elmer-6.0.5452/post/src/screensave.c.orig	2011-11-18 16:09:00.986933606 -0200
++++ elmer-6.0.5452/post/src/screensave.c	2011-11-18 16:09:09.255951663 -0200
+@@ -32,6 +32,7 @@
+ #include <GL/glu.h>
+ 
+ 
++#define USE_INTERP_RESULT		1
+ #include "tcl.h"
+ 
+ #if !(defined(WIN32) || defined(win32))
