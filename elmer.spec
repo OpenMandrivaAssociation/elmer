@@ -40,7 +40,7 @@ License:	GPL
 Summary:	Open Source Finite Element Software for Multiphysical Problems
 Version:	%{version}
 Release:	2
-URL:		http://www.csc.fi/english/pages/elmer
+URL:		https://www.csc.fi/english/pages/elmer
 # svn co https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk elmerfem
 # mv elmerfem elmer-%{version}
 # rm -fr elmer-%{version}/.svn
